@@ -26,7 +26,7 @@ public class PerfectNumber : MonoBehaviour
         DeleteSort();
         
         for(int i = 0; i < Q; i++) {
-            N[i] = Random.Range(2,1000);
+            N[i] = Random.Range(2,10);
             GetFactors(N[i], i);
         }
     }
@@ -63,7 +63,7 @@ public class PerfectNumber : MonoBehaviour
             Debug.Log("PerfectNumber");
         }
 
-        if(System.Math.Abs(Q-sum) == 1){
+        else if(System.Math.Abs(Q-sum) == 1){
             status = "Hampir";
             Debug.Log("Hampir");
         }
