@@ -6,12 +6,13 @@ public class EnemySpawner : MonoBehaviour
 {
     public float delay;
     public Transform target;
-    public GameObject prefab, prefab2;
+    public GameObject prefab, prefab2, potionHp;
     public float spawnRadius = 2.0f;
 
     private void Start()
     {
         InvokeRepeating("SpawnEnemy",3f,delay);
+        InvokeRepeating("PotionSpawner",3f,delay);
     }
 
     void SpawnEnemy(){
@@ -20,5 +21,10 @@ public class EnemySpawner : MonoBehaviour
 
         Vector3 spawnPosition2 = target.transform.position + Random.insideUnitSphere * spawnRadius;
         Instantiate(prefab2, spawnPosition2, Quaternion.identity);
+    }
+
+    void PotionSpawner(){
+        Vector3 spawnPosition = target.transform.position + Random.insideUnitSphere * spawnRadius;
+        Instantiate(potionHp, spawnPosition, Quaternion.identity);
     }
 }

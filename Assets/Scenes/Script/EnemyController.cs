@@ -11,15 +11,22 @@ public enum EnemyType
 public class EnemyController : MonoBehaviour
 {
     public EnemyType type;
-    public Transform target;
+    public Transform target, firePoint;
     public float rotationSpeed, movementSpeed;
     public bool enableRotate;
     public float maxHp, currentHp;
+    public GameObject coinsPrefab, hpPotionsrefab, bulletPrefab;
 
     private void Awake() {
         target = GameObject.Find("Player").transform;
         enableRotate = true;
         currentHp = maxHp;
+    }
+
+    private void Start() {
+        if(type == EnemyType.Stand){
+            InvokeRepeating("Shoot",1,3);
+        }
     }
 
     private void Update()
@@ -35,14 +42,15 @@ public class EnemyController : MonoBehaviour
 
         if(type == EnemyType.Stand){
             RotateToPlayer();
-            Shoot();
         }
 
         CheckDistance();
     }
 
     void Shoot(){
-
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.transform.position, transform.rotation);
+        Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+        bulletRigidbody.AddForce(transform.up * 10, ForceMode2D.Impulse);
     }
 
     void RotateToPlayer(){
@@ -67,21 +75,34 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void HPManager(int val){
+        currentHp += val;
+        int rand;
+        if(currentHp<=0){
+            Destroy(gameObject);
+
+            rand=Random.Range(0,2);
+            if(rand==0){
+                Instantiate(coinsPrefab, transform.position, Quaternion.identity);
+            }
+
+            else
+                Instantiate(hpPotionsrefab, transform.position, Quaternion.identity);
+
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag=="Bullet"){
-            Debug.Log("GetShoot");
-            currentHp = currentHp-30;
-            if(currentHp<=0){
-                Destroy(gameObject);
-            }
+            HPManager(-50);
         }
 
         if(other.gameObject.tag=="SecondBullet"){
-            Debug.Log("GetShoot");
-            currentHp = currentHp-10;
-            if(currentHp<=0){
-                Destroy(gameObject);
-            }
+            HPManager(-20);
+        }
+
+        if(other.gameObject.tag=="Player"){
+            Destroy(gameObject);
         }
     }
     

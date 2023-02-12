@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Bullet
   - SecondBullet
+  - Coins
+  - HPPotions
   layers:
   - Default
   - TransparentFX

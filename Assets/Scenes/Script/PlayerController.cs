@@ -1,14 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {   
+    public float currentHp, maxHp, coins;
     public float bulletSpeed, movementSpeed;
     public Transform firePoint, secondFirePoint, thirdFirePoint;
     public GameObject bulletPrefab, secondBulletPrefab;
     public float sensitivity = 10.0f;
     public Vector3 mousePos, objectPos;
+    public TextMeshProUGUI hpText, coinsText;
+    public GameObject pauseUI;
+
+    private void Start() {
+        currentHp = maxHp;    
+        coins = 0;
+
+        hpText.text = currentHp.ToString();
+        coinsText.text = coins.ToString();
+    }
 
     void Update()
     {
@@ -71,9 +83,41 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    void Dead(){
+        Time.timeScale = 0;
+        //show pause UI
+        pauseUI.SetActive(true);
+    }
+
+    void HPManager(int val){
+        currentHp += val;
+
+        if(currentHp>maxHp){
+            currentHp=maxHp;
+        }
+
+        if(currentHp<=0){
+            Dead();
+        }
+
+        hpText.text = currentHp.ToString();
+    }
+
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag=="Enemy"){
-            Debug.Log("Dead");
+            HPManager(-10);
+            Destroy(other.gameObject);
+        }
+
+        if(other.gameObject.tag=="Coins"){
+            coins += 10;
+            coinsText.text = coins.ToString();
+            Destroy(other.gameObject);
+        }
+
+        if(other.gameObject.tag=="HPPotions"){
+            HPManager(30);
+            Destroy(other.gameObject);
         }
     }
 }
