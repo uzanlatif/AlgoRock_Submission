@@ -81,7 +81,7 @@ public class EnemyController : MonoBehaviour
         if(currentHp<=0){
             Destroy(gameObject);
 
-            rand=Random.Range(0,2);
+            rand=Random.Range(0,1);
             if(rand==0){
                 Instantiate(coinsPrefab, transform.position, Quaternion.identity);
             }

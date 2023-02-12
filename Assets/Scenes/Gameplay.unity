@@ -1052,6 +1052,7 @@ MonoBehaviour:
   target: {fileID: 116574692}
   prefab: {fileID: 7113132388276244842, guid: f453f4db2c2e22145accbb609b0853a7, type: 3}
   prefab2: {fileID: 6162268600103206131, guid: e4eb3c0a450837749ad3ad4fcd5c38c0, type: 3}
+  potionHp: {fileID: 6461082742509565435, guid: 487f4f749a62fa14a8fcc874b68b0953, type: 3}
   spawnRadius: 50
 --- !u!1 &1325754033
 GameObject:
