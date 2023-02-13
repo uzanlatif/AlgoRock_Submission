@@ -51,6 +51,8 @@ public class EnemyController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.transform.position, transform.rotation);
         Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
         bulletRigidbody.AddForce(transform.up * 10, ForceMode2D.Impulse);
+
+        Destroy(bullet,3f);
     }
 
     void RotateToPlayer(){

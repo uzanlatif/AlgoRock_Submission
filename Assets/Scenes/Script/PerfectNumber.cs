@@ -26,7 +26,7 @@ public class PerfectNumber : MonoBehaviour
         DeleteSort();
         
         for(int i = 0; i < Q; i++) {
-            N[i] = Random.Range(2,10);
+            N[i] = Random.Range(2,1000);
             GetFactors(N[i], i);
         }
     }

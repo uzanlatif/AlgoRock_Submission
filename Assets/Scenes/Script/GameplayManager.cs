@@ -7,6 +7,7 @@ public class GameplayManager : MonoBehaviour
 {
     public void Exit(){
         SceneManager.LoadScene("Menu");
+        Time.timeScale = 1;
     }
 
     public void Retry(){
